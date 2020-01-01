@@ -1,5 +1,6 @@
 import React from 'react';
 import MaterialTable from "material-table";
+import Layout from '../components/Layout';
 
 class Index extends React.Component {
   constructor(props) {
@@ -24,48 +25,50 @@ class Index extends React.Component {
 
   render() {
     return (
-      <MaterialTable
-        title="Editable Preview"
-        columns={this.state.columns}
-        data={this.state.data}
-        editable={{
-          onRowAdd: newData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  const data = this.state.data;
-                  data.push(newData);
-                  this.setState({ data }, () => resolve());
-                }
-                resolve()
-              }, 1000)
-            }),
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  const data = this.state.data;
-                  const index = data.indexOf(oldData);
-                  data[index] = newData;
-                  this.setState({ data }, () => resolve());
-                }
-                resolve()
-              }, 1000)
-            }),
-          onRowDelete: oldData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  let data = this.state.data;
-                  const index = data.indexOf(oldData);
-                  data.splice(index, 1);
-                  this.setState({ data }, () => resolve());
-                }
-                resolve()
-              }, 1000)
-            }),
-        }}
-      />
+      <Layout>
+        <MaterialTable
+          title="Editable Preview"
+          columns={this.state.columns}
+          data={this.state.data}
+          editable={{
+            onRowAdd: newData =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  {
+                    const data = this.state.data;
+                    data.push(newData);
+                    this.setState({ data }, () => resolve());
+                  }
+                  resolve()
+                }, 1000)
+              }),
+            onRowUpdate: (newData, oldData) =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  {
+                    const data = this.state.data;
+                    const index = data.indexOf(oldData);
+                    data[index] = newData;
+                    this.setState({ data }, () => resolve());
+                  }
+                  resolve()
+                }, 1000)
+              }),
+            onRowDelete: oldData =>
+              new Promise((resolve, reject) => {
+                setTimeout(() => {
+                  {
+                    let data = this.state.data;
+                    const index = data.indexOf(oldData);
+                    data.splice(index, 1);
+                    this.setState({ data }, () => resolve());
+                  }
+                  resolve()
+                }, 1000)
+              }),
+          }}
+        />
+    </Layout>
     )
   }
 }
